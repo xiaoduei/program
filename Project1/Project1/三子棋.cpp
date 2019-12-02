@@ -35,11 +35,14 @@ void Init(char chessBoard[MAX_ROW][MAX_COL])
 void printChess(char chessBoard[MAX_ROW][MAX_COL])
 {
 	for (int row = 0; row < MAX_ROW; row++) {
+		printf("+---+---+---+\n");
 		for (int col = 0; col < MAX_COL; col++) {
-			printf("%c  ", chessBoard[row][col]);
+			printf("| %c ", chessBoard[row][col]);
 		}
+		putchar('|');
 		putchar('\n');
 	}
+	printf("+---+---+---+\n");
 }
 
 // 玩家落子(以X表示)
@@ -54,7 +57,7 @@ void PlayerMove(char chessBoard[MAX_ROW][MAX_COL])
 			printf("你的输入有误,请重新输入");
 			continue;
 		}
-		if (chessBoard[row_p][row_p] != ' ')
+		if (chessBoard[row_p][col_p] != ' ')
 		{
 			printf("这个位置已经有子了,请重新输入\n");
 			continue;
@@ -83,7 +86,7 @@ int IsFull(char chessBoard[MAX_ROW][MAX_COL])
 {
 	for (int row = 0; row < MAX_ROW; row++) {
 		for (int col = 0; col < MAX_COL; col++) {
-			if (chessBoard[row][col] != ' ')
+			if (chessBoard[row][col] == ' ')
 				return 0;
 		}
 	}
@@ -117,7 +120,7 @@ char IsGameEnd(char chessBoard[MAX_ROW][MAX_COL])
 		return chessBoard[0][0];
 	}
 	if (chessBoard[2][0] == chessBoard[1][1]
-		&& chessBoard[2][0] == chessBoard[2][0]
+		&& chessBoard[2][0] == chessBoard[0][2]
 		&& chessBoard[2][0] != ' ') {
 		return chessBoard[2][0];
 	}
@@ -141,14 +144,17 @@ void Game()
 		PlayerMove(chessBoard);
 		//4.判断游戏是否结束
 		if (IsGameEnd(chessBoard) == 'X') {
+			printChess(chessBoard);
 			printf("你真的是太厉害了呀!\n");
 			break;
 		}
-		else if (IsGameEnd(chessBoard) == 'O') {
+ 		else if (IsGameEnd(chessBoard) == 'O') {
+			printChess(chessBoard);
 			printf("你怎么连电脑都下不赢呢!\n");
 			break;
 		}
 		else if (IsGameEnd(chessBoard) == 'Q') {
+			printChess(chessBoard);
 			printf("你们不相上下呀!\n");
 			break;
 		}
@@ -156,14 +162,17 @@ void Game()
 		ComputerMove(chessBoard);
 		//6.判断游戏是否结束
 		if (IsGameEnd(chessBoard) == 'X') {
+			printChess(chessBoard);
 			printf("你真的是太厉害了呀!\n");
 			break;
 		}
 		else if (IsGameEnd(chessBoard) == 'O') {
+			printChess(chessBoard);
 			printf("你怎么连电脑都下不赢呢!\n");
 			break;
 		}
 		else if (IsGameEnd(chessBoard) == 'Q') {
+			printChess(chessBoard);
 			printf("你们不相上下呀!\n");
 			break;
 		}
@@ -186,5 +195,6 @@ int main()
 			printf("你的输入有误\n");
 		}
 	}
+	system("pause");
 	return 0;
 }
