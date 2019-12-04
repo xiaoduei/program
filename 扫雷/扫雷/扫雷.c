@@ -66,6 +66,7 @@ void Init(char showMap[MAX_ROW][MAX_COL],
 // 打印地图
 void print_Map(char showMap[MAX_ROW][MAX_COL], int mineMap[MAX_ROW][MAX_COL])
 {
+	printf("    ");
 	for (int i = 0; i < MAX_COL; i++) {
 		printf("%d ", i);
 	}
@@ -78,17 +79,19 @@ void print_Map(char showMap[MAX_ROW][MAX_COL], int mineMap[MAX_ROW][MAX_COL])
 		}
 		putchar('\n');
 	}
-	// TODO测试地雷位置
-	for (int row = 0; row < MAX_ROW; row++) {
-		for (int col = 0; col < MAX_COL; col++) {
-			printf("%d ", mineMap[row][col]);
-		}
-		putchar('\n');
-	}
+	//// TODO测试地雷位置
+	//for (int row = 0; row < MAX_ROW; row++) {
+	//	for (int col = 0; col < MAX_COL; col++) {
+	//		printf("%d ", mineMap[row][col]);
+	//	}
+	//	putchar('\n');
+	//}
 }
 
 // 计算8个位置中地雷的个数
-int MineCount(int mineMap[MAX_ROW][MAX_COL], int row, int col)
+void MineCount(char showMap[MAX_ROW][MAX_ROW], 
+				int mineMap[MAX_ROW][MAX_COL], 
+				int row, int col)
 {
 	int count = 0;
 	for (int r = row - 1; r <= row + 1; r++) {
@@ -101,7 +104,7 @@ int MineCount(int mineMap[MAX_ROW][MAX_COL], int row, int col)
 			}
 		}
 	}
-	return count;
+	showMap[row][col] = count + '0';
 }
 
 // 用户输入翻开位置
@@ -147,8 +150,8 @@ void Game()
 			break;
 		}
 		//6.游戏未结束,翻开的格子会变成一个数字
-		showMap[row][col] = MineCount(mineMap, row, col) + '0';
-	}	
+		MineCount(showMap, mineMap, row, col);
+	}
 }
 
 int main()
